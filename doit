@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-OS=`uname`
-HOSTARCH=`uname -m`
+OS=$(uname)
+HOSTARCH=$(uname -m)
 PARALLEL=
 FETCH=0
 QUIET=0
@@ -89,15 +89,15 @@ function extract-tool()
 
 MAKE=make
 if [ "$OS" = "Linux" ]; then
-    COUNT=`grep processor /proc/cpuinfo | wc -l`
-    PARALLEL=-j`expr $COUNT + $COUNT`
+    COUNT=$(grep processor /proc/cpuinfo | wc -l)
+    PARALLEL=-j$(expr $COUNT + $COUNT)
 fi
 if [ "$OS" = "Darwin" ]; then
-    PARALLEL=-j`sysctl -n hw.ncpu`
+    PARALLEL=-j$(sysctl -n hw.ncpu)
     export CXXFLAGS="-fbracket-depth=1024 -O2"
 fi
 if [ "$OS" = "FreeBSD" ]; then
-    PARALLEL=-j`sysctl -n hw.ncpu`
+    PARALLEL=-j$(sysctl -n hw.ncpu)
     export CXXFLAGS="-fbracket-depth=1024 -O2"
     MAKE=gmake
 fi
@@ -134,7 +134,7 @@ if [ -z "$ARCHES" ]; then
 fi
 
 if [ -z "$OUTDIR" ]; then
-    OUTDIR=`pwd`
+    OUTDIR=$(pwd)
 fi
 ARCHIVES=$OUTDIR/archives
 
